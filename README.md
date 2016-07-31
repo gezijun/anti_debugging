@@ -2,14 +2,14 @@
 Anti-debug test for Android platform
 
 
-1. elf_encrypt 
+> elf_encrypt 
 
-demo of encrypt the ELF's functions
+	Encrypt ELF's func
 
-2. Timeuse.c
+> Timeuse.c
 
-functions that can get TIME of Linux
+	Get TIME funcs of GNU/Linux
 
-3. inotify
+> inotify
 
-inotify to watch file/dir
+	Watch file/dir's changes
