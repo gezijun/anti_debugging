@@ -186,7 +186,7 @@ void *srvThread ()
 
 	if (child == (pid_t)-1) {
 		printf ("fork() failed: %s\n", strerror(errno));
-		//exit (11);
+		exit (11);
 	}
 
 	if (!child) {	
@@ -200,9 +200,9 @@ void *srvThread ()
 		int 	create_flag = 0;  
 		int 	sem_id;  
 
-		ptrace (PTRACE_TRACEME, 0, NULL, NULL);  //set traced by parent
-		g_pPid = getppid ();	//get parent pid
-		tid = getTids (g_pPid, &tids); //get parent tids
+		ptrace (PTRACE_TRACEME, 0, NULL, NULL);
+		g_pPid = getppid ();
+		tid = getTids (g_pPid, &tids);
 		if (!tid) {
 			printf ("getTids(): %s\n", strerror (errno));
 		}
@@ -295,7 +295,7 @@ int ifPStatusNormal (pid_t *tid, int tids, char *p)
 			if (strncmp (readLine, "State", 5) == 0) {
 				if (strstr (readLine, "stop") != 0) {
 					XXX_DEBUG_LOG ("DEBUG : TID status error, state");
-					//memcpy (p, "quit", 4); // not use sem_v
+					memcpy (p, "quit", 4); // not use sem_v
 					kill (g_pPid, SIGKILL);
 					fclose (fp);
 					return 1;
@@ -305,7 +305,7 @@ int ifPStatusNormal (pid_t *tid, int tids, char *p)
 			if (strncmp (readLine, "TracerPid", 9) == 0) {
 				if (0 != atoi (&readLine[10])) {
 					printf ("DEBUG : TID status error, TracerPid : %d\n", atoi (&readLine[10]));
-					//memcpy (p, "quit", 4);
+					memcpy (p, "quit", 4);
 					kill (g_pPid, SIGKILL);
 					fclose (fp);
 					return 1;
